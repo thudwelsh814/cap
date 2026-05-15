@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Blueprint — College App Survival Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d1b2a;
+    --navy-light: #1a2e42;
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --cream: #faf7f2;
+    --cream-dark: #f0eade;
+    --text: #1a1a2e;
+    --text-muted: #5a6070;
+    --text-light: #8a8fa0;
+    --border: rgba(201, 168, 76, 0.2);
+    --accent-green: #2d6a4f;
+    --accent-red: #8b1a1a;
+    --accent-blue: #1a4a7a;
+    --white: #ffffff;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --shadow: 0 4px 24px rgba(13, 27, 42, 0.08);
+    --shadow-gold: 0 4px 24px rgba(201, 168, 76, 0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ——— NAV ——— */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13, 27, 42, 0.97);
+    backdrop-filter: blur(12px);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .nav-links {
+    display: flex; gap: 0.25rem; list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .nav-links a:hover {
+    color: var(--gold);
+    background: rgba(201,168,76,0.1);
+  }
+
+  /* ——— HERO ——— */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(26,74,122,0.3) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--gold) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .hero-inner { position: relative; max-width: 760px; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.35);
+    color: var(--gold-light);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    color: var(--white);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.6);
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+  .btn-outline {
+    background: transparent;
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+    margin-top: 4rem; padding-top: 3rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* ——— SECTIONS COMMON ——— */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-intro {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  .alt-bg { background: var(--navy); }
+  .alt-bg .section-title { color: var(--white); }
+  .alt-bg .section-intro { color: rgba(255,255,255,0.55); }
+
+  /* ——— TIMELINE ——— */
+  #timeline { background: var(--white); }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1));
+  }
+  .tl-item {
+    position: relative;
+    padding: 0 0 2.5rem 2rem;
+  }
+  .tl-dot {
+    position: absolute;
+    left: -6px; top: 4px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+  .tl-season {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.25rem;
+  }
+  .tl-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+  .tl-tasks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .tl-tasks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .tl-tasks li::before {
+    content: '→';
+    color: var(--gold);
+    flex-shrink: 0;
+    font-weight: 600;
+    margin-top: 0.05rem;
+  }
+
+  /* ——— ESSAY SECTION ——— */
+  #essay { background: var(--cream); }
+  .essay-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .essay-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    border: 1px solid rgba(201,168,76,0.15);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .essay-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-gold); }
+  .card-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  .icon-gold { background: rgba(201,168,76,0.12); }
+  .icon-green { background: rgba(45,106,79,0.12); }
+  .icon-red { background: rgba(139,26,26,0.1); }
+  .icon-blue { background: rgba(26,74,122,0.1); }
+  .card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .label-gold { color: var(--gold); }
+  .label-green { color: var(--accent-green); }
+  .label-red { color: var(--accent-red); }
+  .label-blue { color: var(--accent-blue); }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+  .card-body {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .card-body ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .card-body ul li::before { content: '• '; color: var(--gold); font-weight: 700; }
+  .essay-wide {
+    grid-column: 1 / -1;
+    background: var(--navy);
+    color: white;
+  }
+  .essay-wide .card-title { color: var(--gold-light); }
+  .essay-wide .card-body { color: rgba(255,255,255,0.65); }
+  .essay-wide .card-body ul li::before { color: var(--gold); }
+
+  /* ——— CHECKLIST ——— */
+  #checklist { background: var(--white); }
+  .checklist-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .checklist-group h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .checklist-group h3 span { font-size: 1rem; }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--cream-dark);
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .check-item:hover { color: var(--text); }
+  .check-box {
+    width: 18px; height: 18px;
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .check-box.done {
+    background: var(--gold);
+  }
+  .check-box.done::after {
+    content: '✓';
+    color: var(--navy);
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+  .check-item.done .check-text {
+    text-decoration: line-through;
+    color: var(--text-light);
+  }
+
+  /* ——— FINANCIAL AID ——— */
+  #financial { background: var(--cream); }
+  .faid-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .faid-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .faid-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.25rem;
+    line-height: 1;
+  }
+  .faid-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .faid-steps {
+    background: var(--navy);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    counter-reset: step;
+  }
+  .faid-steps h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold-light);
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .faid-step {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    counter-increment: step;
+  }
+  .faid-step:last-child { border-bottom: none; }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+  }
+  .step-content h4 {
+    color: var(--white);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .step-content p {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+  }
+
+  /* ——— RECS ——— */
+  #recs { background: var(--white); }
+  .recs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .rec-card {
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    border: 1px solid var(--border);
+  }
+  .rec-card.do { background: rgba(45,106,79,0.04); border-color: rgba(45,106,79,0.2); }
+  .rec-card.dont { background: rgba(139,26,26,0.04); border-color: rgba(139,26,26,0.15); }
+  .rec-head {
+    display: flex; align-items: center; gap: 0.6rem;
+    margin-bottom: 1.25rem;
+  }
+  .rec-head .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .rec-head .dot.green { background: var(--accent-green); }
+  .rec-head .dot.red { background: var(--accent-red); }
+  .rec-head h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .rec-card.do .rec-head h3 { color: var(--accent-green); }
+  .rec-card.dont .rec-head h3 { color: var(--accent-red); }
+  .rec-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .rec-list li {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .rec-card.do .rec-list li::before {
+    content: '✓';
+    position: absolute; left: 0;
+    color: var(--accent-green);
+    font-weight: 700;
+    font-size: 0.75rem;
+  }
+  .rec-card.dont .rec-list li::before {
+    content: '✗';
+    position: absolute; left: 0;
+    color: var(--accent-red);
+    font-weight: 700;
+    font-size: 0.75rem;
+  }
+
+  /* ——— INSIDER TIPS ——— */
+  #tips { background: var(--navy); }
+  #tips .section-title { color: var(--white); }
+  #tips .section-intro { color: rgba(255,255,255,0.5); }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .tip-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .tip-card:hover {
+    background: rgba(201,168,76,0.08);
+    border-color: rgba(201,168,76,0.2);
+  }
+  .tip-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    opacity: 0.7;
+  }
+  .tip-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--white);
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    font-style: italic;
+  }
+  .tip-body {
+    font-size: 0.83rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.65;
+  }
+
+  /* ——— COLLEGE LIST ——— */
+  #list { background: var(--cream); }
+  .list-table {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .list-header {
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 0.9rem 1.5rem;
+    gap: 1rem;
+  }
+  .list-header span {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.7);
+  }
+  .list-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+    border-bottom: 1px solid var(--cream-dark);
+    align-items: center;
+    transition: background 0.15s;
+  }
+  .list-row:hover { background: var(--cream); }
+  .list-row:last-child { border-bottom: none; }
+  .list-type {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 100px;
+    display: inline-block;
+  }
+  .type-safety { background: rgba(45,106,79,0.1); color: var(--accent-green); }
+  .type-match { background: rgba(26,74,122,0.1); color: var(--accent-blue); }
+  .type-reach { background: rgba(139,26,26,0.1); color: var(--accent-red); }
+  .list-school { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+  .list-meta { font-size: 0.8rem; color: var(--text-muted); }
+
+  /* ——— GLOSSARY ——— */
+  #glossary { background: var(--white); }
+  .gloss-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  .gloss-item {
+    padding: 1.1rem 1.25rem;
+    background: var(--cream);
+    border-radius: var(--radius);
+    border-left: 3px solid var(--gold);
+    transition: background 0.2s;
+  }
+  .gloss-item:hover { background: var(--cream-dark); }
+  .gloss-term {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.02em;
+  }
+  .gloss-def {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ——— FOOTER ——— */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 2.5rem;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+  footer strong { color: rgba(255,255,255,0.7); }
+
+  /* ——— ANIMATIONS ——— */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ——— RESPONSIVE ——— */
+  @media (max-width: 700px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    section { padding: 3.5rem 1.25rem; }
+    .essay-grid, .checklist-cols, .faid-grid,
+    .recs-grid, .tips-grid, .gloss-grid { grid-template-columns: 1fr; }
+    .essay-wide { grid-column: 1; }
+    .faid-grid { grid-template-columns: 1fr 1fr; }
+    .list-header, .list-row { grid-template-columns: 2fr 1fr; }
+    .list-header span:nth-child(3),
+    .list-header span:nth-child(4),
+    .list-row > *:nth-child(3),
+    .list-row > *:nth-child(4) { display: none; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#hero">✦ The Blueprint</a>
+  <ul class="nav-links">
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#essay">Essays</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+    <li><a href="#financial">Aid</a></li>
+    <li><a href="#recs">Recs</a></li>
+    <li><a href="#tips">Tips</a></li>
+    <li><a href="#glossary">Glossary</a></li>
+  </ul>
+</nav>
+
+<!-- ——— HERO ——— -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">For the Class of 2027 · Junior → Senior Transition</div>
+    <h1 class="hero-title">Your <em>Blueprint</em> for College Apps</h1>
+    <p class="hero-sub">Everything you need to go from "wait, I have to do WHAT?" to submitting your apps with confidence. Built by someone who's been there.</p>
+    <div class="hero-cta">
+      <a href="#timeline" class="btn btn-gold">Start with the Timeline →</a>
+      <a href="#checklist" class="btn btn-outline">Jump to Checklist</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">650</span>
+        <span class="stat-label">Words for your essay</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">5–10</span>
+        <span class="stat-label">Schools on your list</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">Oct 1</span>
+        <span class="stat-label">FAFSA opens</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">$150B</span>
+        <span class="stat-label">Federal aid available</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— TIMELINE ——— -->
+<section id="timeline">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-tag">Step by step</span>
+      <h2 class="section-title">Your <em>Senior Year</em> Roadmap</h2>
+      <p class="section-intro">College apps aren't due all at once — here's when to do what, so you never feel blindsided.</p>
+    </div>
+    <div class="timeline reveal">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-season">Summer Before Senior Year</div>
+        <h3 class="tl-title">Lay the Groundwork</h3>
+        <ul class="tl-tasks">
+          <li>Finalize your college list — aim for 5–10 schools across safety, match, and reach categories</li>
+          <li>Start drafting your Common App personal statement — summer is your best uninterrupted writing time</li>
+          <li>Decide if you'll apply Early Decision (binding) or Early Action (non-binding) to any schools</li>
+          <li>Ask 2–3 teachers or mentors for recommendation letters — give them 4–6 weeks minimum</li>
+          <li>Compile your activities list and update your résumé</li>
+          <li>Research net price calculators for each school on your list</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-season">August – September</div>
+        <h3 class="tl-title">Build Your Applications</h3>
+        <ul class="tl-tasks">
+          <li>Common App opens August 1 — create your account and get familiar with all sections</li>
+          <li>Finalize and polish your personal statement — aim for the upper end of the 650-word limit</li>
+          <li>Begin writing supplemental essays for each school (these are school-specific — don't sleep on them)</li>
+          <li>Request official transcripts from your school's counseling office well before deadlines</li>
+          <li>Retake SAT/ACT if you want to improve — October is the last useful date for most ED/EA deadlines</li>
+          <li>Register on your college portals and track each school's requirements separately</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-season">October 1</div>
+        <h3 class="tl-title">FAFSA Opens — File Immediately</h3>
+        <ul class="tl-tasks">
+          <li>The FAFSA for 2026–27 opened around October 1, 2025 — do NOT wait on this</li>
+          <li>Financial aid is first-come, first-served; some funds run out early</li>
+          <li>Create your FSA ID on StudentAid.gov — your parent needs one too if you're a dependent</li>
+          <li>Gather 2024 tax returns, bank account info, and investment details before sitting down</li>
+          <li>Check if each school on your list also requires the CSS Profile (private schools often do)</li>
+          <li>Send SAT scores to schools before early deadlines — allow 2 weeks processing time</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-season">October – November</div>
+        <h3 class="tl-title">Early Deadlines Hit</h3>
+        <ul class="tl-tasks">
+          <li>Early Decision and Early Action deadlines typically fall in November 1 or 15</li>
+          <li>ED acceptances are binding — only apply ED if you're 100% sure and have reviewed the financial aid</li>
+          <li>If you have a true first choice, applying ED can significantly boost your chances of acceptance</li>
+          <li>Submit applications a few days early — don't push right up to the deadline</li>
+          <li>Confirm your recommenders have submitted everything through the portal</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-season">November – January</div>
+        <h3 class="tl-title">Regular Decision Push</h3>
+        <ul class="tl-tasks">
+          <li>Most Regular Decision deadlines fall January 1 or January 15 — plan backward from there</li>
+          <li>Continue maintaining strong grades — colleges can and do rescind offers for senior slump</li>
+          <li>Apply for external scholarships — local, national, and school-specific ones all count</li>
+          <li>Some schools have an ED II deadline in January with decisions by February</li>
+          <li>Check your email and portals frequently — schools may request additional info</li>
+          <li>Keep copies of everything you submit</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-season">March – May 1</div>
+        <h3 class="tl-title">Decision Season & Commit</h3>
+        <ul class="tl-tasks">
+          <li>Regular decision results come out March–April; compare financial aid award letters carefully</li>
+          <li>Calculate your true net price: Cost of Attendance minus grants and scholarships</li>
+          <li>You can appeal financial aid offers — politely and with documentation of competing offers</li>
+          <li>National Decision Day is May 1 — that's your deadline to commit and pay your deposit</li>
+          <li>Send in your final transcript and complete any enrollment paperwork on time</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ——— ESSAYS ——— -->
+<section id="essay">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-tag">The Most Important Part</span>
+      <h2 class="section-title">Writing an Essay <em>They'll Remember</em></h2>
+      <p class="section-intro">Your grades and test scores already live in your transcript. The essay is your only chance to show up as a full human being. Here's how to make it count.</p>
+    </div>
+    <div class="essay-grid reveal">
+
+      <div class="essay-card">
+        <div class="card-icon icon-gold">✦</div>
+        <div class="card-label label-gold">The Golden Rule</div>
+        <h3 class="card-title">Sound Like You, Not "Admissions-Worthy"</h3>
+        <div class="card-body">
+          The most memorable essays don't try to sound impressive — they sound like a real person. Admissions officers read hundreds of essays daily. The ones they remember are honest, specific, and written in an authentic voice. Write the essay only you could write. If your friend could submit it, start over.
+        </div>
+      </div>
+
+      <div class="essay-card">
+        <div class="card-icon icon-blue">◎</div>
+        <div class="card-label label-blue">Structure</div>
+        <h3 class="card-title">Story, Not Report</h3>
+        <div class="card-body">
+          Think of it like storytelling, not a résumé summary. Start with a hook — an anecdote, a question, a scene. Provide context in paragraph 2. Show how this experience shaped your thinking. End with something forward-looking. Beginning, middle, end. Clear, vivid, specific.
+        </div>
+      </div>
+
+      <div class="essay-card">
+        <div class="card-icon icon-green">◈</div>
+        <div class="card-label label-green">Topic Selection</div>
+        <h3 class="card-title">Small Moments Outperform Big Trophies</h3>
+        <div class="card-body">
+          You don't need a life-changing disaster or a national championship. The real value is not in the moment itself — it's in how you explain it, the lesson you drew from it, and how it shaped the way you see the world. Brainstorm small, everyday experiences that reveal your character. That's where the gold is.
+        </div>
+      </div>
+
+      <div class="essay-card">
+        <div class="card-icon icon-red">⚑</div>
+        <div class="card-label label-red">Common Mistakes</div>
+        <h3 class="card-title">What to Avoid</h3>
+        <div class="card-body">
+          <ul>
+            <li>Repeating what's already in your activity list</li>
+            <li>Writing about a topic you think sounds good but isn't central to your identity</li>
+            <li>Starting too late — great essays go through 8–10 drafts</li>
+            <li>"Trauma dumping" without showing growth or reflection</li>
+            <li>Going over the word count (disrespects the reader's time)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="essay-card essay-wide">
+        <div class="card-label label-gold">The 7 Common App Prompts (Pick One)</div>
+        <h3 class="card-title" style="color: var(--gold-light);">Choose the prompt that fits your story — not the one that sounds most impressive</h3>
+        <div class="card-body">
+          <ul>
+            <li>A background, identity, interest, or talent so meaningful your application would be incomplete without it</li>
+            <li>The lessons we take from obstacles can be fundamental — discuss a challenge, setback, or failure and what you learned</li>
+            <li>A belief or idea you questioned and what prompted your thinking</li>
+            <li>An activity, idea, or someone who has had a significant influence on your intellectual development</li>
+            <li>Discuss an accomplishment, event, or realization that sparked personal growth</li>
+            <li>A topic, idea, or concept that makes you lose all track of time — why does it captivate you?</li>
+            <li>Share an essay on any topic of your choice</li>
+          </ul>
+          <p style="margin-top: 1rem; font-size: 0.82rem; color: rgba(255,255,255,0.4);">Tip: Prompt 7 (your choice) is the most open-ended and often produces the most original essays. Don't default to it just because it's easy — use it because you have a story that doesn't fit elsewhere.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ——— CHECKLIST ——— -->
+<section id="checklist">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-tag">Stay Organized</span>
+      <h2 class="section-title">The <em>Master</em> Checklist</h2>
+      <p class="section-intro">Click each item as you complete it. Every application — regardless of school — touches most of these boxes.</p>
+    </div>
+    <div class="checklist-cols reveal">
+
+      <div class="checklist-group">
+        <h3><span>📋</span> Application Materials</h3>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Create your Common App account (opens August 1)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Fill in all Common App basic info sections (academics, demographics, activities)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Add your Activities List (up to 10) — use all 150 characters per entry</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Write and finalize your personal statement (aim for ~640–650 words)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Complete supplemental essays for each school individually</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Request official transcripts from your school counselor</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Request 2–3 recommendation letters (at least 6 weeks in advance)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Share your résumé with recommendation writers to help them</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Send SAT/ACT scores to each school (allow 2 weeks processing)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Proofread every essay at least twice — then have someone else proofread it</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Save copies of your completed application and all materials</span>
+        </div>
+      </div>
+
+      <div class="checklist-group">
+        <h3><span>💰</span> Financial Aid & Scholarships</h3>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Create FSA ID on StudentAid.gov (you and a parent each need one)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Gather tax returns and financial documents before sitting down to FAFSA</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Submit FAFSA as early as possible after October 1</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Check if each school requires the CSS Profile (many private schools do)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Note each school's financial aid priority deadline (often earlier than app deadline)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Research scholarships — local, national, school-specific, and identity-based</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Run each school's net price calculator to estimate true cost</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Apply for state grant programs (California: Cal Grant, for example)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Compare financial aid award letters using net price (not sticker price)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">If aid is insufficient, write an appeal letter with documentation</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Commit and pay enrollment deposit by May 1</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ——— FINANCIAL AID ——— -->
+<section id="financial">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-tag">Don't Leave Money on the Table</span>
+      <h2 class="section-title">Financial Aid, <em>Demystified</em></h2>
+      <p class="section-intro">The government sets aside around $150 billion in federal aid every year — and billions more go unclaimed because students don't apply. Here's how to get yours.</p>
+    </div>
+    <div class="faid-grid reveal">
+      <div class="faid-card">
+        <div class="faid-num">$150B</div>
+        <div class="faid-label">Federal financial aid set aside annually for students</div>
+      </div>
+      <div class="faid-card">
+        <div class="faid-num">62%</div>
+        <div class="faid-label">Of high school seniors who did NOT complete a FAFSA in 2024</div>
+      </div>
+      <div class="faid-card">
+        <div class="faid-num">$3B</div>
+        <div class="faid-label">In federal aid that went unclaimed because students skipped FAFSA</div>
+      </div>
+    </div>
+
+    <div class="faid-steps reveal">
+      <h3>How to File the FAFSA — Step by Step</h3>
+
+      <div class="faid-step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Create your FSA ID at StudentAid.gov</h4>
+          <p>Both you AND your parent (if you're a dependent) each need separate FSA IDs. This is what you use to sign and submit electronically. Do this before anything else.</p>
+        </div>
+      </div>
+
+      <div class="faid-step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Gather your documents before you sit down</h4>
+          <p>You'll need 2024 federal tax returns (yours and parents'), W-2s, bank account balances, investment info, and your Social Security number. Having everything ready makes the form take 30–45 minutes.</p>
+        </div>
+      </div>
+
+      <div class="faid-step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Submit as early as possible after October 1</h4>
+          <p>Some aid — especially state grants and institutional grants — is awarded first-come, first-served. The earlier you file, the more you can access. Do not wait until you're accepted.</p>
+        </div>
+      </div>
+
+      <div class="faid-step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Double-check state and school-specific deadlines</h4>
+          <p>Federal deadline is June 30, but your state or individual school may require FAFSA months earlier to qualify for their own grants and scholarships. Check each school's financial aid page.</p>
+        </div>
+      </div>
+
+      <div class="faid-step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h4>Compare award letters by true net price</h4>
+          <p>Net price = Total Cost of Attendance minus grants and scholarships (free money). Do NOT compare just tuition numbers — factor in housing, books, transportation. Subtract only the free money, not loans.</p>
+        </div>
+      </div>
+
+      <div class="faid-step">
+        <div class="step-num">06</div>
+        <div class="step-content">
+          <h4>Look beyond FAFSA — scholarships and state aid</h4>
+          <p>Search local community foundations, your church or religious organization, your intended major's professional associations, your parents' employers, and national scholarship databases like Bold.org and Scholarships.com.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ——— RECS ——— -->
+<section id="recs">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-tag">Letters of Recommendation</span>
+      <h2 class="section-title">Getting <em>Great</em> Letters</h2>
+      <p class="section-intro">A strong rec letter from someone who truly knows you can be the difference between an accept and a waitlist. Here's how to set your recommenders up to write their best.</p>
+    </div>
+    <div class="recs-grid reveal">
+
+      <div class="rec-card do">
+        <div class="rec-head">
+          <div class="dot green"></div>
+          <h3>Do This</h3>
+        </div>
+        <ul class="rec-list">
+          <li>Ask 4–6 weeks before your earliest deadline — your teachers are busy</li>
+          <li>Choose someone who knows you well as a student AND as a person, not just whoever gave you an A</li>
+          <li>Provide your recommenders with your résumé and any specific things you'd love them to highlight</li>
+          <li>Send a thank-you note after they submit — it goes a long way</li>
+          <li>Ask your school counselor early too — they submit the school form and often write a letter</li>
+          <li>Follow up gently one week before the deadline to confirm they've submitted</li>
+          <li>Aim for one recommender from humanities/social science and one from STEM if possible</li>
+        </ul>
+      </div>
+
+      <div class="rec-card dont">
+        <div class="rec-head">
+          <div class="dot red"></div>
+          <h3>Don't Do This</h3>
+        </div>
+        <ul class="rec-list">
+          <li>Don't ask the week before the deadline — you'll get a rushed, generic letter</li>
+          <li>Don't ask someone just because they're an impressive title or credential</li>
+          <li>Don't ask a teacher who barely knows you outside of class</li>
+          <li>Don't forget to waive your right to view the letter — colleges trust waived letters more</li>
+          <li>Don't pick only one teacher who covers similar subjects — variety in perspective helps</li>
+          <li>Don't assume they know your biggest accomplishments — tell them what to mention</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ——— INSIDER TIPS ——— -->
+<section id="tips">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-tag" style="color: rgba(201,168,76,0.7);">From Someone Who's Done It</span>
+      <h2 class="section-title">Insider Tips <em>Nobody Tells You</em></h2>
+      <p class="section-intro">The stuff they don't put in the official guides.</p>
+    </div>
+    <div class="tips-grid reveal">
+
+      <div class="tip-card">
+        <div class="tip-num">01 / ESSAY</div>
+        <div class="tip-title">"Show, don't tell" is everything</div>
+        <div class="tip-body">Don't write "I am a leader." Write the scene where you made the hard call, and let the admissions officer conclude you're a leader. Show the moment, not the label. Specific sensory details — smells, sounds, physical feelings — make essays unforgettable.</div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">02 / ACTIVITIES</div>
+        <div class="tip-title">Depth beats breadth every time</div>
+        <div class="tip-body">Three activities you were deeply committed to over multiple years will always impress more than twelve you showed up to twice. Show growth, leadership, and real investment in the things that matter to you. Don't pad the list.</div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">03 / TESTING</div>
+        <div class="tip-title">Test-optional means you should still check your scores</div>
+        <div class="tip-body">Compare your score to a school's middle 50% range. If your score falls in or above that range, submit it — it helps you. If it's below, it may hurt you even at a "test-optional" school. Make the strategic call school by school.</div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">04 / SUPPLEMENTALS</div>
+        <div class="tip-title">"Why us?" essays need actual research</div>
+        <div class="tip-body">Generic "Why School X" essays that could apply to any school are a red flag for admissions officers. Name specific professors, programs, research labs, or clubs. Show that you've actually imagined yourself there. Demonstrated interest matters — and shows in these essays.</div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">05 / FINANCIAL AID</div>
+        <div class="tip-title">You can appeal your aid offer</div>
+        <div class="tip-body">If your financial situation has changed (job loss, medical bills, etc.), you can contact the financial aid office and ask for a professional judgment review. If a competing school offered you significantly more, you can also use that as leverage politely. It works more often than you think.</div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">06 / MINDSET</div>
+        <div class="tip-title">Waitlists aren't rejections</div>
+        <div class="tip-body">If you're waitlisted at a school you love, write a brief letter of continued interest — tell them why they're still your top choice and what new accomplishments you have to share. Schools genuinely do pull from waitlists, especially after May 1.</div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">07 / ORGANIZATION</div>
+        <div class="tip-title">Build a tracking spreadsheet from Day 1</div>
+        <div class="tip-body">Make a simple spreadsheet: school name, deadline, EA/ED/RD, essay requirements, test score policy, FAFSA deadline, CSS Profile required, status. Check it weekly. The students who get stressed are almost always the ones who didn't track.</div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">08 / GRADES</div>
+        <div class="tip-title">Senior year grades still matter</div>
+        <div class="tip-body">Colleges receive your mid-year and final transcripts. Acceptance can be rescinded for a severe grade drop in senior year. Don't coast. Especially in the courses most relevant to your intended major — those are the ones admissions officers pay attention to.</div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">09 / DEADLINES</div>
+        <div class="tip-title">Submit 2–3 days before the deadline</div>
+        <div class="tip-body">Portals get overwhelmed on deadline day. Teachers hit submit late. Technology fails. Submitting a few days early gives you a buffer for last-minute issues — and it's a habit that will serve you well in college too.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ——— COLLEGE LIST ——— -->
+<section id="list" style="background: var(--white);">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-tag">Build Your List</span>
+      <h2 class="section-title">How to Structure <em>Your College List</em></h2>
+      <p class="section-intro">A balanced college list has three tiers. Apply to schools in all three — this is your safety net and your dream.</p>
+    </div>
+    <div class="list-table reveal">
+      <div class="list-header">
+        <span>Tier</span>
+        <span>Type</span>
+        <span>Acceptance Rate</span>
+        <span>Your Approach</span>
+      </div>
+      <div class="list-row">
+        <div class="list-school">Safety Schools (2–3)</div>
+        <div><span class="list-type type-safety">Safety</span></div>
+        <div class="list-meta">Schools where your GPA and test scores are above average for admitted students</div>
+        <div class="list-meta">Apply here knowing you'd be genuinely happy to attend — not just as a backup you'd hate</div>
+      </div>
+      <div class="list-row">
+        <div class="list-school">Match Schools (3–5)</div>
+        <div><span class="list-type type-match">Match</span></div>
+        <div class="list-meta">Your stats align closely with the school's typical admitted student profile</div>
+        <div class="list-meta">These should be your "bread and butter" — real excitement and real shot at admission</div>
+      </div>
+      <div class="list-row">
+        <div class="list-school">Reach Schools (1–3)</div>
+        <div><span class="list-type type-reach">Reach</span></div>
+        <div class="list-meta">Your stats are below average for that school, or acceptance rate is under 20%</div>
+        <div class="list-meta">Shoot your shot — but don't build your entire plan around these outcomes</div>
+      </div>
+      <div class="list-row">
+        <div class="list-school">Financial Safety (1)</div>
+        <div><span class="list-type type-safety">Safety</span></div>
+        <div class="list-meta">A school where you qualify for significant aid or scholarships regardless of need</div>
+        <div class="list-meta">Consider in-state public schools, schools with guaranteed merit aid, or community college as a transfer pathway</div>
+      </div>
+    </div>
+    <div style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(201,168,76,0.07); border-radius: var(--radius); border: 1px solid var(--border);" class="reveal">
+      <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.7;">
+        <strong style="color: var(--navy);">Things to research for each school:</strong> graduation rate, average class size, career services quality, alumni network, internship and research opportunities, campus culture, location, housing options, and the net price (after aid). Selectivity is just one factor — fit matters more than ranking.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ——— GLOSSARY ——— -->
+<section id="glossary">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-tag">Decode the Jargon</span>
+      <h2 class="section-title">College App <em>Glossary</em></h2>
+      <p class="section-intro">You're going to hear a lot of terms thrown around. Here's what they actually mean.</p>
+    </div>
+    <div class="gloss-grid reveal">
+      <div class="gloss-item">
+        <div class="gloss-term">Common App</div>
+        <div class="gloss-def">A single application platform accepted by 1,000+ colleges. Fill in your info once and add schools to your list. Opens August 1 each year.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Early Decision (ED)</div>
+        <div class="gloss-def">A binding agreement — if accepted, you commit to enroll. Typically due November 1 or 15. Only apply ED if you're 100% certain and have reviewed the financial aid.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Early Action (EA)</div>
+        <div class="gloss-def">Non-binding early application — you hear back sooner but are not obligated to enroll. Same deadlines as ED, more flexibility.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Regular Decision (RD)</div>
+        <div class="gloss-def">Standard timeline. Deadlines usually January 1–15. Decisions arrive March–April. You commit by May 1.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">FAFSA</div>
+        <div class="gloss-def">Free Application for Federal Student Aid. Required to access federal grants, work-study, and loans. Opens October 1. File immediately. It's free.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">CSS Profile</div>
+        <div class="gloss-def">A more detailed financial aid form required by many private colleges in addition to FAFSA. Goes deeper on family finances to determine institutional aid.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">SAI (Student Aid Index)</div>
+        <div class="gloss-def">A number calculated from your FAFSA that colleges use to determine how much federal aid you're eligible for. Not the amount you owe — the lower the SAI, the more aid you can receive.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Cost of Attendance (COA)</div>
+        <div class="gloss-def">The total estimated cost for one academic year: tuition, fees, room, board, books, supplies, transportation, and personal expenses. Your real cost, not just tuition.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Net Price</div>
+        <div class="gloss-def">COA minus all grants and scholarships (free money you don't repay). The most important number when comparing schools — always compare net prices, not sticker prices.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Demonstrated Interest</div>
+        <div class="gloss-def">Evidence you're genuinely interested in a school — campus visits, attending info sessions, engaging with their admissions office, and writing strong "Why us?" supplement essays.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Test-Optional</div>
+        <div class="gloss-def">You can apply without submitting SAT/ACT scores. BUT: submit your scores if they're in or above the school's middle 50% range — they can only help in that case.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Supplement Essays</div>
+        <div class="gloss-def">School-specific short essays in addition to the main personal statement. Common types: "Why us?", "Describe a challenge," "What makes you unique?" Each school has its own — do NOT copy-paste.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Activities List</div>
+        <div class="gloss-def">Up to 10 extracurricular activities on the Common App. Use all 150 characters per entry to describe your role, impact, and time commitment. Quality and depth beat quantity.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Senior Slump</div>
+        <div class="gloss-def">The phenomenon of grades dropping after submitting applications. Dangerous — colleges receive your final transcript and CAN rescind admission if grades drop significantly. Stay engaged.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— FOOTER ——— -->
+<footer>
+  <p style="margin-bottom: 0.5rem;">
+    <strong>The Blueprint</strong> — Built for Juniors Becoming Seniors
+  </p>
+  <p>
+    For official resources visit: 
+    <a href="https://www.commonapp.org" target="_blank">Common App</a> · 
+    <a href="https://studentaid.gov" target="_blank">StudentAid.gov</a> · 
+    <a href="https://bigfuture.collegeboard.org" target="_blank">BigFuture</a> · 
+    <a href="https://bold.org" target="_blank">Bold.org Scholarships</a>
+  </p>
+  <p style="margin-top: 0.75rem; font-size: 0.73rem; opacity: 0.5;">
+    Deadlines and policies change year to year. Always verify with official college and government sources.
+  </p>
+</footer>
+
+<script>
+  // Checklist toggle
+  function toggleCheck(el) {
+    el.classList.toggle('done');
+    el.querySelector('.check-box').classList.toggle('done');
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
